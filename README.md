@@ -1,9 +1,9 @@
 # ENSF 608 – Team Project
  
 To avoid merge conflicts, **each person will use their own branch**.  
-Please **do not push directly to `main`** — I will merge everything at the end.
+Please **do not push directly to `main`** — all merges will be handled by Hareem at the end.
 
-Below are the quick steps to create and use your own branch.
+Below are instructions for setting up your branch, contributing to the SQL file, and completing the remaining project tasks.
 
 ---
 
@@ -42,6 +42,9 @@ you should see something like:
 * yourname-branch
   main
 ```
+
+Make all your changes in your branch only. We are all working in the same file, so pushing to main will create merge conflicts.
+
 ### 5. Make your changes (SQL work) in your branch only
 do **not** edit code on main - since we will all be working on the same file, we need to avoid merge conflicts
 
@@ -68,14 +71,105 @@ git commit -m "Describe what you worked on"
 git push origin yourname-branch
 ```
 
+### Creating a Pull Request (PR)
+
+Once your work is ready for review:
+- Go to the GitHub repo page.
+- Click “Compare & Pull Request” next to your branch.
+- Write a brief description of what you added or changed. Check your work and make sure everything you would like to add is accurate.
+- Submit the Pull Request.
+- Do not merge it yourself — we will review and merge together.
+
+This avoids merge conflicts and ensures everyone knows what changes are coming in.
+
 ## Final Notes
 - Only push to your own branch.
 - Do not push to main.
-- I will merge all branches into main at the end.
+- We will merge all branches into main as the project goes on/at the end.
 - If you’re unsure about anything, just ask — it’s better to check than accidentally overwrite someone’s work.
 
 **Once the project is finished, these branch instructions will be removed.**
 
+---
+## Project Tasks & What Everyone Needs to Do
+
+Below is the list of remaining steps for the project.
+Everyone should contribute to different sections using their own branch.
+
+### 1. Insert Sample Data
+
+We need realistic sample data for all tables, including:
+- Users
+- Volunteers / Sponsors
+- Venues
+- Events
+- Categories & Event_Category_Link
+- Registrations
+- Payments
+- Reviews
+- Notifications
+- Volunteer Availability & Interests
+
+How to contribute:
+- Add INSERT INTO statements below the schema in the same SQL file.
+- Only insert data for the tables you choose to work on.
+- Avoid inserting into the same tables as someone else without discussing first.
+
+  
+### 2. Test the Database
+
+Everyone should help test that our database works correctly.
+
+This includes:
+- Running the entire file from top to bottom in MySQL Workbench
+- Making sure tables are created correctly
+- Ensuring foreign keys work
+- Making sure sample data inserts without errors
+- Testing many-to-many linking tables
+- Testing the derived attribute (r_total_amount in Registrations (derived from unit price and quantity)
+
+### 3. Write & Test Queries
+
+Based on our proposal and project description, we need SQL queries such as:
+- List all upcoming events
+- Show volunteers available on a certain day
+- List sponsored events
+- Retrieve events by category
+- Get all reviews for an event
+- Show all events a user is registered for
+- Organizer dashboard queries
+- Sponsor-related queries
+- LLM queries (e.g., “show me free events this weekend”)
+- Any required joins (inner, left, right)
+
+These queries will be added at the bottom of the SQL file under:
+
+  ```bash
+  -- ==============================
+  -- TEST QUERIES
+  -- ==============================
+  ```
+
+### 4. Verify With Proposal
+
+Before final submission, everyone must verify that:
+- Every table in the ERD exists in the SQL file
+- Every relationship matches the logical model
+- Attributes match exactly
+- No constraints are missing
+- All requirements from the proposal/project requirements are included
+
+### 5. Final Review
+
+Near the end of the project:
+- We review each remaining PR together
+- Fix any issues or merge conflicts
+- Merge branches into main
+- Run the final SQL file in MySQL to confirm everything works
+
+Once complete, we create the final deliverable for submission.
+
+---
 
 ## Project Description
 
@@ -109,5 +203,3 @@ Our relational database includes the following core entities:
 All entities are normalized and connected through appropriate primary/foreign keys to support efficient querying and a scalable platform design.
 
 This SQL repository will store all table definitions, constraints, sample data, and final queries for the project.
-
-
