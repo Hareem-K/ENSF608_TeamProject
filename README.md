@@ -46,7 +46,7 @@ you should see something like:
 Make all your changes in your branch only. We are all working in the same file, so pushing to main will create merge conflicts.
 
 ### 5. Make your changes (SQL work) in your branch only
-do **not** edit code on main - since we will all be working on the same file, we need to avoid merge conflicts
+do **not** edit code on main - since we will all be working on the same files, we need to avoid merge conflicts
 
 ## Saving and Uploading Your Work
 
