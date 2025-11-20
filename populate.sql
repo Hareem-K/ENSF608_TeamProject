@@ -130,8 +130,8 @@ VALUES
 -- (All users whose role = 'volunteer')
 -- ============================================================
 
-INSERT INTO Volunteers (user_id)
-SELECT user_id
+INSERT INTO Volunteers (user_id, u_role)
+SELECT user_id, u_role
 FROM Users
 WHERE u_role = 'volunteer';
 
@@ -268,15 +268,15 @@ VALUES
 -- (All users whose role = 'sponsor')
 -- ============================================================
 
-INSERT INTO Sponsors (user_id, s_sponsor_type, s_organization_name, s_website_url)
+INSERT INTO Sponsors (user_id, u_role, s_sponsor_type, s_organization_name, s_website_url)
 VALUES
-(11, 'Corporate', 'StoneTech Industries', 'https://stonetech.ca'),
-(12, 'Community Partner', 'Suri Wellness Foundation', 'https://suriwellness.org'),
-(13, 'Corporate', 'Reed Financial', 'https://reedfinancial.com'),
-(14, 'Local Business', 'Alvarez Coffee Co.', 'https://alvarezcoffee.ca'),
-(15, 'Corporate', 'Cole Robotics', 'https://colerobotics.com'),
-(16, 'Community Partner', 'Iqbal Arts Society', 'https://iqbalarts.ca'),
-(17, 'Corporate', 'Foster Digital Group', 'https://fosterdigital.ca'),
-(18, 'Local Business', 'Sanders Home Decor', 'https://sandersdecor.ca'),
-(19, 'Corporate', 'Hoffman Analytics', 'https://hoffmananalytics.com'),
-(20, 'Local Business', 'Dawson Fitness Club', 'https://dawsonfitness.ca');
+(11, 'sponsor', 'Corporate', 'StoneTech Industries', 'https://stonetech.ca'),
+(12, 'sponsor', 'Community Partner', 'Suri Wellness Foundation', 'https://suriwellness.org'),
+(13, 'sponsor', 'Corporate', 'Reed Financial', 'https://reedfinancial.com'),
+(14, 'sponsor', 'Local Business', 'Alvarez Coffee Co.', 'https://alvarezcoffee.ca'),
+(15, 'sponsor', 'Corporate', 'Cole Robotics', 'https://colerobotics.com'),
+(16, 'sponsor', 'Community Partner', 'Iqbal Arts Society', 'https://iqbalarts.ca'),
+(17, 'sponsor', 'Corporate', 'Foster Digital Group', 'https://fosterdigital.ca'),
+(18, 'sponsor', 'Local Business', 'Sanders Home Decor', 'https://sandersdecor.ca'),
+(19, 'sponsor', 'Corporate', 'Hoffman Analytics', 'https://hoffmananalytics.com'),
+(20, 'sponsor', 'Local Business', 'Dawson Fitness Club', 'https://dawsonfitness.ca');
