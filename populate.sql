@@ -1,282 +1,187 @@
-USE ensf608_eventsplatform;
+-- ===============================
+-- POPULATE EVENT CATEGORIES
+-- ===============================
 
--- ============================================================
--- POPULATE USERS (50 realistic users)
--- ============================================================
-
-INSERT INTO Users (u_first_name, u_last_name, u_address, u_role)
+INSERT INTO Event_Categories (ec_name, ec_description)
 VALUES
-('Emily', 'Carter', '12 Aspen Ridge, Calgary', 'attendee'),
-('Michael', 'Nguyen', '45 Riverbend Dr, Calgary', 'attendee'),
-('Sophia', 'Patel', '88 Oakmount Rd, Calgary', 'organizer'),
-('Aiden', 'Hunter', '201 Maple St, Calgary', 'attendee'),
-('Liam', 'Morris', '17 Cranston Blvd, Calgary', 'volunteer'),
-('Maya', 'Sharma', '66 Panorama Way, Calgary', 'volunteer'),
-('Oliver', 'Wong', '54 Tuscany Springs Rd, Calgary', 'volunteer'),
-('Grace', 'Bennett', '92 Harvest Hills Dr, Calgary', 'attendee'),
-('Ethan', 'Brooks', '10 Mckenzie Lake Bay, Calgary', 'organizer'),
-('Hannah', 'Lopez', '7 Signal Hill Close, Calgary', 'attendee'),
+('Technology', 'Events focused on tech and innovation'),
+('Art & Culture', 'Exhibitions and cultural activities'),
+('Education', 'Workshops, seminars, and learning events'),
+('Health & Wellness', 'Events promoting health and wellness'),
+('Music & Entertainment', 'Concerts, festivals, and shows'),
+('Outdoor & Adventure', 'Sports, hiking, and outdoor activities'),
+('Networking', 'Professional and social networking events'),
+('Business & Marketing', 'Business seminars and marketing workshops'),
+('Community Service', 'Volunteer and charity events'),
+('Virtual Learning', 'Online educational and skill-building events');
 
--- Sponsors (10)
-('Daniel', 'Stone', '140 Kensington Rd, Calgary', 'sponsor'),
-('Kavita', 'Suri', '120 Sage Hill Blvd, Calgary', 'sponsor'),
-('Marcus', 'Reed', '89 Parkdale Blvd, Calgary', 'sponsor'),
-('Nora', 'Alvarez', '203 Nolan Hill Blvd, Calgary', 'sponsor'),
-('Jasper', 'Cole', '4 Royal Oak Terrace, Calgary', 'sponsor'),
-('Zara', 'Iqbal', '9 Mount Pleasant Rd, Calgary', 'sponsor'),
-('Henry', 'Foster', '61 Legacy Circle, Calgary', 'sponsor'),
-('Lily', 'Sanders', '33 Windermere Rd, Calgary', 'sponsor'),
-('Caleb', 'Hoffman', '90 Seton Blvd, Calgary', 'sponsor'),
-('Renee', 'Dawson', '13 Brentwood Hr, Calgary', 'sponsor'),
+-- ===============================
+-- POPULATE M:N Link Events to Sponsors
+-- ===============================
 
--- More volunteers (15)
-('Aria', 'Mitchell', '22 Ranchlands Blvd, Calgary', 'volunteer'),
-('Noah', 'Klein', '74 Hawkwood Dr, Calgary', 'volunteer'),
-('Ella', 'Raymond', '39 Mahogany Dr, Calgary', 'volunteer'),
-('Jayden', 'Tan', '84 Canyon Meadows Dr, Calgary', 'volunteer'),
-('Chloe', 'Martins', '28 Charleswood Dr, Calgary', 'volunteer'),
-('Santiago', 'Vega', '11 Coral Springs Blvd, Calgary', 'volunteer'),
-('Ayesha', 'Qureshi', '5 Panorama Hills Mews, Calgary', 'volunteer'),
-('Mason', 'Clarke', '21 Auburn Bay Dr, Calgary', 'volunteer'),
-('Isabella', 'Ford', '301 17 Ave SW, Calgary', 'volunteer'),
-('Owen', 'Black', '67 Coventry Hills Way, Calgary', 'volunteer'),
-('Tara', 'Olsen', '55 Springbank Way, Calgary', 'volunteer'),
-('Julian', 'Bates', '40 Citadel Dr, Calgary', 'volunteer'),
-('Leah', 'Hughes', '18 Douglas Glen Blvd, Calgary', 'volunteer'),
-('Mateo', 'Santos', '92 Copperfield Blvd, Calgary', 'volunteer'),
-('Amelia', 'Becker', '33 Belmont Dr, Calgary', 'volunteer'),
-
--- More attendees/organizers (15)
-('Ryan', 'Turner', '6 McKenzie Towne Blvd, Calgary', 'attendee'),
-('Sarah', 'Hill', '24 Killarney Rd, Calgary', 'attendee'),
-('Bella', 'Guzman', '83 Silverado Blvd, Calgary', 'attendee'),
-('Eli', 'Freeman', '70 Rundlehorn Dr, Calgary', 'organizer'),
-('Ariana', 'White', '12 Sunalta St, Calgary', 'organizer'),
-('Vivian', 'Holt', '91 Riverstone Blvd, Calgary', 'attendee'),
-('Jacob', 'Pierce', '59 Edgemont Dr, Calgary', 'attendee'),
-('Nina', 'Ochoa', '38 Symons Valley Pkwy, Calgary', 'attendee'),
-('Leo', 'Barker', '47 Shawnessy Blvd, Calgary', 'attendee'),
-('Sophie', 'Lynch', '128 Erin Woods Dr, Calgary', 'organizer'),
-('Ivan', 'Mathews', '73 Skyview Ranch Rd, Calgary', 'attendee'),
-('Dina', 'Rostami', '55 Royal Birch Rd, Calgary', 'attendee'),
-('Jared', 'Kim', '11 Evanston Link, Calgary', 'attendee'),
-('Priya', 'Mehta', '101 Royal Vista Dr, Calgary', 'attendee'),
-('Alec', 'Walters', '44 Walden Sq, Calgary', 'attendee');
-
-
-
--- ============================================================
--- POPULATE USER PHONES (1–2 per user)
--- ============================================================
-
-INSERT INTO User_Phones (user_id, phone_number)
+INSERT INTO Event_Sponsors (event_id, user_id)
 VALUES
-(1, '403-555-1281'),
-(2, '403-555-9910'),
-(2, '587-555-8821'),
-(3, '403-555-3421'),
-(4, '587-555-2019'),
-(5, '403-555-7712'),
-(6, '403-555-6128'),
-(7, '403-555-4900'),
-(7, '587-555-2398'),
-(8, '403-555-5441'),
-(9, '403-555-8120'),
-(10, '587-555-1001'),
-(11, '403-555-9191'),
-(12, '403-555-4410'),
-(13, '587-555-3030'),
-(14, '403-555-9928'),
-(15, '403-555-8844'),
-(16, '587-555-2288'),
-(17, '403-555-3005'),
-(18, '403-555-1550'),
-(19, '403-555-7128'),
-(20, '587-555-9090'),
-(21, '403-555-7654'),
-(22, '587-555-6123'),
-(23, '403-555-9098'),
-(24, '587-555-7123'),
-(25, '403-555-8971'),
-(26, '587-555-5542'),
-(27, '403-555-2322'),
-(28, '587-555-9012'),
-(29, '403-555-8111'),
-(30, '403-555-4414'),
-(31, '403-555-7650'),
-(32, '587-555-4419'),
-(33, '403-555-2333'),
-(34, '587-555-9981'),
-(35, '403-555-1721'),
-(36, '587-555-8831'),
-(37, '403-555-7282'),
-(38, '403-555-5533'),
-(39, '587-555-7712'),
-(40, '403-555-9123'),
-(41, '587-555-6601'),
-(42, '403-555-8872'),
-(43, '587-555-2231'),
-(44, '403-555-1029'),
-(45, '587-555-5511'),
-(46, '403-555-8522'),
-(47, '587-555-1109'),
-(48, '403-555-6799'),
-(49, '587-555-4412'),
-(50, '403-555-3100');
+(1, 11),
+(1, 12),
+(2, 13),
+(3, 14),
+(4, 15),
+(5, 16),
+(6, 17),
+(7, 18),
+(8, 19),
+(9, 20),
+(10, 11),
+(10, 12);
 
+-- ===============================
+-- POPULATE M:N Link Events to Volunteers
+-- ===============================
 
--- ============================================================
--- POPULATE VOLUNTEERS TABLE
--- (All users whose role = 'volunteer')
--- ============================================================
-
-INSERT INTO Volunteers (user_id)
-SELECT user_id
-FROM Users
-WHERE u_role = 'volunteer';
-
--- ============================================================
--- POPULATE VOLUNTEER INTERESTS
--- ============================================================
-
-INSERT INTO Volunteer_Interests (user_id, interest_value)
+INSERT INTO Event_Volunteers (event_id, user_id)
 VALUES
-(5, 'Event Setup'),
-(5, 'Registration Desk'),
+-- Event 1
+(1, 5),
+(1, 6),
+(1, 7),
 
-(6, 'Photography'),
-(6, 'Community Outreach'),
+-- Event 2
+(2, 21),
+(2, 22),
 
-(7, 'Logistics'),
-(7, 'Crowd Management'),
+-- Event 3
+(3, 23),
+(3, 24),
 
-(21, 'Youth Programs'),
-(21, 'Event Setup'),
+-- Event 4
+(4, 25),
+(4, 26),
 
-(22, 'Fundraising'),
-(22, 'Logistics'),
+-- Event 5
+(5, 27),
+(5, 28),
 
-(23, 'Tech Support'),
-(23, 'Event Setup'),
+-- Event 6
+(6, 29),
+(6, 30),
 
-(24, 'Crowd Management'),
-(24, 'Registration Desk'),
+-- Event 7
+(7, 31),
+(7, 32),
 
-(25, 'Community Outreach'),
-(25, 'Photography'),
+-- Event 8
+(8, 33),
+(8, 34),
 
-(26, 'Food Service'),
-(26, 'Logistics'),
+-- Event 9
+(9, 35),
+(9, 5),
 
-(27, 'Event Setup'),
-(27, 'Tech Support'),
+-- Event 10
+(10, 6),
+(10, 7);
 
-(28, 'Photography'),
-(28, 'Youth Programs'),
+-- ===============================
+-- POPULATE M:N Link Events to Categories
+-- ===============================
 
-(29, 'Crowd Management'),
-
-(30, 'Tech Support'),
-(30, 'Registration Desk'),
-
-(31, 'Event Setup'),
-(31, 'Fundraising'),
-
-(32, 'Logistics'),
-(32, 'Community Outreach'),
-
-(33, 'Photography'),
-(33, 'Event Setup'),
-
-(34, 'Crowd Management'),
-
-(35, 'Tech Support'),
-(35, 'Food Service');
-
-
--- ============================================================
--- POPULATE VOLUNTEER AVAILABILITY
--- (realistic: 1–3 availability slots per volunteer)
--- ============================================================
-
-INSERT INTO Volunteer_Availability (user_id, availability_day, start_time, end_time)
+INSERT INTO Event_Category_Link (event_id, category_id)
 VALUES
--- User 5
-(5, 'Mon', '09:00', '12:00'),
-(5, 'Wed', '12:00', '16:00'),
+-- Event 1: Tech Conference 2025
+(1, 1),
+(1, 7),
+(1, 8),
 
--- User 6
-(6, 'Tue', '16:00', '20:00'),
-(6, 'Thu', '12:00', '16:00'),
+-- Event 2: Virtual AI Workshop
+(2, 1),
+(2, 10),
 
--- User 7
-(7, 'Sat', '09:00', '12:00'),
+-- Event 3: Art & Culture Expo
+(3, 2),
+(3, 3),
 
--- User 21
-(21, 'Fri', '12:00', '16:00'),
-(21, 'Sat', '16:00', '20:00'),
+-- Event 4: Hybrid Education Summit
+(4, 3),
+(4, 10),
 
--- User 22
-(22, 'Mon', '12:00', '16:00'),
+-- Event 5: Mountain Hiking Meetup
+(5, 6),
+(5, 9),
 
--- User 23
-(23, 'Tue', '09:00', '12:00'),
-(23, 'Thu', '16:00', '20:00'),
+-- Event 6: Online Marketing Bootcamp
+(6, 8),
+(6, 10),
 
--- User 24
-(24, 'Wed', '09:00', '12:00'),
+-- Event 7: Riverside Music Fest
+(7, 5),
+(7, 7),
 
--- User 25
-(25, 'Mon', '16:00', '20:00'),
-(25, 'Fri', '09:00', '12:00'),
+-- Event 8: Tech Meetup Online
+(8, 1),
+(8, 10),
 
--- User 26
-(26, 'Thu', '09:00', '12:00'),
+-- Event 9: Innovation Workshop
+(9, 1),
+(9, 3),
+(9, 8),
 
--- User 27
-(27, 'Wed', '12:00', '16:00'),
-(27, 'Sat', '12:00', '16:00'),
+-- Event 10: Community Volunteer Day
+(10, 9),
+(10, 10);
 
--- User 28
-(28, 'Tue', '12:00', '16:00'),
+-- ===============================
+-- POPULATE NOTIFICATIONS
+-- ===============================
 
--- User 29
-(29, 'Fri', '16:00', '20:00'),
-
--- User 30
-(30, 'Thu', '12:00', '16:00'),
-
--- User 31
-(31, 'Mon', '09:00', '12:00'),
-(31, 'Tue', '12:00', '16:00'),
-
--- User 32
-(32, 'Fri', '12:00', '16:00'),
-
--- User 33
-(33, 'Sat', '09:00', '12:00'),
-
--- User 34
-(34, 'Tue', '16:00', '20:00'),
-
--- User 35
-(35, 'Wed', '12:00', '16:00'),
-(35, 'Thu', '09:00', '12:00');
-
--- ============================================================
--- POPULATE SPONSORS TABLE
--- (All users whose role = 'sponsor')
--- ============================================================
-
-INSERT INTO Sponsors (user_id, s_sponsor_type, s_organization_name, s_website_url)
+INSERT INTO Notifications (user_id, n_channel, n_status, n_kind, n_scheduled_at, n_sent_at, n_read_at)
 VALUES
-(11, 'Corporate', 'StoneTech Industries', 'https://stonetech.ca'),
-(12, 'Community Partner', 'Suri Wellness Foundation', 'https://suriwellness.org'),
-(13, 'Corporate', 'Reed Financial', 'https://reedfinancial.com'),
-(14, 'Local Business', 'Alvarez Coffee Co.', 'https://alvarezcoffee.ca'),
-(15, 'Corporate', 'Cole Robotics', 'https://colerobotics.com'),
-(16, 'Community Partner', 'Iqbal Arts Society', 'https://iqbalarts.ca'),
-(17, 'Corporate', 'Foster Digital Group', 'https://fosterdigital.ca'),
-(18, 'Local Business', 'Sanders Home Decor', 'https://sandersdecor.ca'),
-(19, 'Corporate', 'Hoffman Analytics', 'https://hoffmananalytics.com'),
-(20, 'Local Business', 'Dawson Fitness Club', 'https://dawsonfitness.ca');
+(1, 'email', 'sent', 'reminder', '2025-11-20 09:00:00', '2025-11-20 09:05:00', '2025-11-20 09:15:00'),
+(2, 'sms', 'pending', 'promo', '2025-11-21 10:00:00', NULL, NULL),
+(3, 'in-app', 'sent', 'update', '2025-11-19 14:00:00', '2025-11-19 14:02:00', '2025-11-19 14:10:00'),
+(4, 'email', 'failed', 'system', '2025-11-18 08:00:00', NULL, NULL),
+(5, 'sms', 'sent', 'reminder', '2025-11-22 11:00:00', '2025-11-22 11:05:00', NULL),
+(6, 'in-app', 'pending', 'update', '2025-11-23 12:00:00', NULL, NULL),
+(7, 'email', 'sent', 'promo', '2025-11-17 09:30:00', '2025-11-17 09:35:00', '2025-11-17 09:45:00'),
+(8, 'sms', 'sent', 'reminder', '2025-11-21 10:15:00', '2025-11-21 10:20:00', NULL),
+(9, 'in-app', 'failed', 'system', '2025-11-20 15:00:00', NULL, NULL),
+(10, 'email', 'sent', 'update', '2025-11-22 13:00:00', '2025-11-22 13:05:00', '2025-11-22 13:10:00'),
+(11, 'sms', 'pending', 'promo', '2025-11-23 14:30:00', NULL, NULL),
+(12, 'in-app', 'sent', 'reminder', '2025-11-18 09:00:00', '2025-11-18 09:02:00', '2025-11-18 09:10:00'),
+(13, 'email', 'sent', 'update', '2025-11-19 11:00:00', '2025-11-19 11:05:00', NULL),
+(14, 'sms', 'failed', 'system', '2025-11-20 12:00:00', NULL, NULL),
+(15, 'in-app', 'sent', 'promo', '2025-11-21 08:00:00', '2025-11-21 08:05:00', '2025-11-21 08:10:00'),
+(16, 'email', 'pending', 'reminder', '2025-11-22 07:00:00', NULL, NULL),
+(17, 'sms', 'sent', 'update', '2025-11-23 09:00:00', '2025-11-23 09:05:00', NULL),
+(18, 'email', 'sent', 'promo', '2025-11-24 10:00:00', '2025-11-24 10:05:00', '2025-11-24 10:15:00'),
+(19, 'in-app', 'pending', 'reminder', '2025-11-25 11:00:00', NULL, NULL),
+(20, 'sms', 'sent', 'system', '2025-11-26 12:00:00', '2025-11-26 12:02:00', NULL),
+(21, 'email', 'pending', 'update', '2025-11-27 13:00:00', NULL, NULL),
+(22, 'in-app', 'sent', 'promo', '2025-11-28 14:00:00', '2025-11-28 14:05:00', '2025-11-28 14:10:00'),
+(23, 'sms', 'failed', 'reminder', '2025-11-29 15:00:00', NULL, NULL),
+(24, 'email', 'sent', 'system', '2025-11-30 16:00:00', '2025-11-30 16:02:00', '2025-11-30 16:10:00'),
+(25, 'in-app', 'pending', 'update', '2025-12-01 09:30:00', NULL, NULL),
+(26, 'sms', 'sent', 'promo', '2025-12-02 10:00:00', '2025-12-02 10:05:00', '2025-12-02 10:15:00'),
+(27, 'email', 'failed', 'reminder', '2025-12-03 11:00:00', NULL, NULL),
+(28, 'in-app', 'sent', 'system', '2025-12-04 12:00:00', '2025-12-04 12:05:00', NULL),
+(29, 'sms', 'pending', 'update', '2025-12-05 13:00:00', NULL, NULL),
+(30, 'email', 'sent', 'promo', '2025-12-06 14:00:00', '2025-12-06 14:05:00', '2025-12-06 14:10:00'),
+(31, 'in-app', 'failed', 'reminder', '2025-12-07 15:00:00', NULL, NULL),
+(32, 'sms', 'sent', 'system', '2025-12-08 16:00:00', '2025-12-08 16:02:00', '2025-12-08 16:10:00'),
+(33, 'email', 'pending', 'update', '2025-12-09 09:30:00', NULL, NULL),
+(34, 'in-app', 'sent', 'promo', '2025-12-10 10:00:00', '2025-12-10 10:05:00', '2025-12-10 10:10:00'),
+(35, 'sms', 'failed', 'reminder', '2025-12-11 11:00:00', NULL, NULL),
+(36, 'email', 'sent', 'system', '2025-12-12 12:00:00', '2025-12-12 12:05:00', '2025-12-12 12:10:00'),
+(37, 'in-app', 'pending', 'update', '2025-12-13 13:00:00', NULL, NULL),
+(38, 'sms', 'sent', 'promo', '2025-12-14 14:00:00', '2025-12-14 14:05:00', '2025-12-14 14:10:00'),
+(39, 'email', 'failed', 'reminder', '2025-12-15 15:00:00', NULL, NULL),
+(40, 'in-app', 'sent', 'system', '2025-12-16 16:00:00', '2025-12-16 16:05:00', '2025-12-16 16:10:00'),
+(41, 'sms', 'pending', 'update', '2025-12-17 09:00:00', NULL, NULL),
+(42, 'email', 'sent', 'promo', '2025-12-18 10:00:00', '2025-12-18 10:05:00', '2025-12-18 10:15:00'),
+(43, 'in-app', 'failed', 'reminder', '2025-12-19 11:00:00', NULL, NULL),
+(44, 'sms', 'sent', 'system', '2025-12-20 12:00:00', '2025-12-20 12:02:00', '2025-12-20 12:10:00'),
+(45, 'email', 'pending', 'update', '2025-12-21 13:00:00', NULL, NULL),
+(46, 'in-app', 'sent', 'promo', '2025-12-22 14:00:00', '2025-12-22 14:05:00', '2025-12-22 14:10:00'),
+(47, 'sms', 'failed', 'reminder', '2025-12-23 15:00:00', NULL, NULL),
+(48, 'email', 'sent', 'system', '2025-12-24 16:00:00', '2025-12-24 16:05:00', '2025-12-24 16:10:00'),
+(49, 'in-app', 'pending', 'update', '2025-12-25 09:00:00', NULL, NULL),
+(50, 'sms', 'sent', 'promo', '2025-12-26 10:00:00', '2025-12-26 10:05:00', '2025-12-26 10:10:00');
