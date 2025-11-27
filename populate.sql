@@ -313,3 +313,44 @@ VALUES
 (9, 15, 'Innovation Workshop', 'Hands-on projects for innovators', 80, 35.00, TRUE, '2025-12-18 10:00:00', '2025-12-18 15:00:00'),
 (10, 3, 'Community Volunteer Day', 'Local community volunteering event', 200, 0.00, FALSE, '2025-12-22 09:00:00', '2025-12-22 16:00:00');
 
+
+-- ============================================
+-- REVIEWS 
+-- ============================================
+
+-- ============================================
+-- REVIEWS (Member 4 - Heena)
+-- ============================================
+
+INSERT INTO Reviews (user_id, event_id, re_comment, re_rating, re_created_at)
+VALUES
+(1, 3, 'Amazing workshop! Very informative.', 5, '2024-10-15 14:23:00'),
+(2, 3, 'Great content but could be shorter.', 4, '2024-10-16 10:44:00'),
+(4, 5, 'Average experience. Venue was crowded.', 3, '2024-11-02 18:15:00'),
+(7, 2, 'Loved the speaker and the activities!', 5, '2024-11-12 12:05:00'),
+(10, 1, 'Not organized well. Needs improvement.', 2, '2024-11-18 09:33:00');
+
+-- ============================================
+-- NOTIFICATIONS (Member 4 - Heena)
+-- ============================================
+
+INSERT INTO Notifications (user_id, n_channel, n_status, n_kind, n_scheduled_at, n_sent_at, n_read_at)
+VALUES
+(1, 'email', 'sent', 'update',
+ '2024-10-10 09:00:00', '2024-10-10 09:01:30', '2024-10-10 09:05:00'),
+
+(3, 'sms', 'sent', 'reminder',
+ '2024-10-20 18:00:00', '2024-10-20 18:00:10', NULL),
+
+(2, 'in-app', 'pending', 'promo',
+ '2024-11-05 08:00:00', NULL, NULL),
+
+(5, 'email', 'sent', 'system',
+ '2024-11-01 15:00:00', '2024-11-01 15:00:20', '2024-11-01 16:10:00'),
+
+(8, 'sms', 'failed', 'update',
+ '2024-11-03 13:00:00', NULL, NULL),
+
+(7, 'in-app', 'sent', 'reminder',
+ '2024-11-07 09:30:00', '2024-11-07 09:32:00', NULL);
+
