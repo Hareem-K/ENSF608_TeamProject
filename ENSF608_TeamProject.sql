@@ -95,7 +95,7 @@ BEFORE INSERT ON Sponsors
 FOR EACH ROW
 BEGIN
 	IF (SELECT u_role FROM Users WHERE user_id = NEW.user_id) <> 'sponsor' THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a sponsorr';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a sponsor';
 	END IF;
 END //
 DELIMITER ;
