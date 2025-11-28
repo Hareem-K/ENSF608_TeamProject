@@ -2,6 +2,7 @@
 -- DATABASE SETUP
 -- ===============================
 
+DROP DATABASE IF EXISTS ensf608_eventsplatform;
 CREATE DATABASE IF NOT EXISTS ensf608_eventsplatform;
 USE ensf608_eventsplatform;
 
@@ -39,6 +40,18 @@ CREATE TABLE Volunteers (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
+-- DISJOINT SPECIALIZATION trigger
+DELIMITER //
+CREATE TRIGGER disjoint_volunteers
+BEFORE INSERT ON Volunteers
+FOR EACH ROW
+BEGIN
+	IF (SELECT u_role FROM Users WHERE user_id = NEW.user_id) <> 'volunteer' THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a volunteer';
+	END IF;
+END //
+DELIMITER ;
+
 -- ===============================
 -- VOLUNTEER INTERESTS (multivalued)
 -- ===============================
@@ -74,6 +87,18 @@ CREATE TABLE Sponsors (
     s_website_url      VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+-- DISJOINT SPECIALIZATION trigger
+DELIMITER //
+CREATE TRIGGER disjoint_sponsors
+BEFORE INSERT ON Sponsors
+FOR EACH ROW
+BEGIN
+	IF (SELECT u_role FROM Users WHERE user_id = NEW.user_id) <> 'sponsor' THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a sponsorr';
+	END IF;
+END //
+DELIMITER ;
 
 -- ===============================
 -- VENUES
