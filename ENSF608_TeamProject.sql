@@ -11,14 +11,13 @@ USE ensf608_eventsplatform;
 -- ===============================
 
 CREATE TABLE Users (
-    user_id        INT AUTO_INCREMENT,
+    user_id        INT AUTO_INCREMENT PRIMARY KEY,
     u_first_name   VARCHAR(50) NOT NULL,
     u_last_name    VARCHAR(50) NOT NULL,
     u_address      VARCHAR(255),
     u_is_active    BOOLEAN DEFAULT TRUE,
     u_created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
-    u_role         ENUM('attendee', 'volunteer', 'organizer', 'sponsor') NOT NULL,
-    PRIMARY KEY (user_id, u_role)
+    u_role         ENUM('attendee', 'volunteer', 'organizer', 'sponsor') NOT NULL
 );
 
 -- ===============================
@@ -38,13 +37,20 @@ CREATE TABLE User_Phones (
 
 CREATE TABLE Volunteers (
     user_id INT PRIMARY KEY,
-    u_role ENUM('attendee', 'volunteer', 'organizer', 'sponsor') NOT NULL,
-    FOREIGN KEY (user_id, u_role) REFERENCES Users(user_id, u_role)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
--- DISJOINT SPECIALIZATION check
- ALTER TABLE Volunteers
- ADD CONSTRAINT check_volunteer CHECK (u_role = 'volunteer');
+-- DISJOINT SPECIALIZATION trigger
+DELIMITER //
+CREATE TRIGGER disjoint_volunteers
+BEFORE INSERT ON Volunteers
+FOR EACH ROW
+BEGIN
+	IF (SELECT u_role FROM Users WHERE user_id = NEW.user_id) <> 'volunteer' THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a volunteer';
+	END IF;
+END //
+DELIMITER ;
 
 -- ===============================
 -- VOLUNTEER INTERESTS (multivalued)
@@ -76,16 +82,23 @@ CREATE TABLE Volunteer_Availability (
 
 CREATE TABLE Sponsors (
     user_id            INT PRIMARY KEY,
-    u_role				ENUM('attendee', 'volunteer', 'organizer', 'sponsor') NOT NULL,
     s_sponsor_type     VARCHAR(50),
     s_organization_name VARCHAR(100),
     s_website_url      VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
--- DISJOINT SPECIALIZATION check
- ALTER TABLE Sponsors
- ADD CONSTRAINT check_sponsor CHECK (u_role = 'sponsor');
+-- DISJOINT SPECIALIZATION trigger
+DELIMITER //
+CREATE TRIGGER disjoint_sponsors
+BEFORE INSERT ON Sponsors
+FOR EACH ROW
+BEGIN
+	IF (SELECT u_role FROM Users WHERE user_id = NEW.user_id) <> 'sponsor' THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User must be a sponsorr';
+	END IF;
+END //
+DELIMITER ;
 
 -- ===============================
 -- VENUES
