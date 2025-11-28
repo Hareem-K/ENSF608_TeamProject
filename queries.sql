@@ -109,6 +109,7 @@ INNER JOIN Payments ON Registrations.registration_id = Payments.registration_id
 GROUP BY Users.user_id, Users.u_first_name
 ORDER BY totalPaid DESC
 LIMIT 3;
+
 -- ===============================
 -- List categories for each event
 -- ===============================
@@ -162,3 +163,60 @@ JOIN Event_Volunteers ON Events.event_id = Event_Volunteers.event_id
 JOIN Users ON Event_Volunteers.user_id = Users.user_id
 WHERE Users.u_role = 'volunteer'
 ORDER BY Event_Categories.ec_name, volunteer_name;
+
+-- ============================================
+-- REVIEW & NOTIFICATION QUERIES
+-- ============================================
+
+-- ============================================================
+-- 24. Average rating per event
+-- ============================================================
+SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
+FROM Events e
+JOIN Reviews r ON e.event_id = r.event_id
+GROUP BY e.event_id, e.e_title;
+
+-- ============================================================
+-- 25. Highest-rated event
+-- ============================================================
+SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
+FROM Events e
+JOIN Reviews r ON e.event_id = r.event_id
+GROUP BY e.event_id, e.e_title
+ORDER BY avg_rating DESC
+LIMIT 1;
+
+-- ============================================================
+-- 26. lowest-rated event
+-- ============================================================
+
+SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
+FROM Events e
+JOIN Reviews r ON e.event_id = r.event_id
+GROUP BY e.event_id, e.e_title
+ORDER BY avg_rating ASC
+LIMIT 1;
+
+-- ============================================================
+-- 27. Reviews per user
+-- ============================================================
+SELECT u.user_id, CONCAT(u.u_first_name, ' ', u.u_last_name) AS user_name,
+       COUNT(r.review_id) AS num_reviews
+FROM Users u
+LEFT JOIN Reviews r ON u.user_id = r.user_id
+GROUP BY u.user_id, user_name;
+
+
+-- ============================================================
+-- 28. Notification counts by channel
+-- ============================================================
+SELECT n.n_channel, COUNT(*) AS total_notifications
+FROM Notifications n
+GROUP BY n.n_channel;
+
+-- ============================================================
+-- 29. Pending vs sent notifications
+-- ============================================================
+SELECT n_status, COUNT(*) AS count
+FROM Notifications
+GROUP BY n_status;
