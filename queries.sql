@@ -9,23 +9,23 @@ FROM Users;
 -- ============================================================
 -- 2. Find all volunteers with full names
 -- ============================================================
-SELECT u.user_id, u.u_first_name, u.u_last_name
+SELECT u.user_id, u.u_first_name, u.u_last_name, u.u_role
 FROM Users u
-JOIN Volunteers v ON u.user_id = v.user_id;
+INNER JOIN Volunteers v ON u.user_id = v.user_id;
 
 -- ============================================================
 -- 3. Find all sponsors and their organizations
 -- ============================================================
 SELECT u.u_first_name, u.u_last_name, s.s_organization_name
 FROM Sponsors s
-JOIN Users u ON s.user_id = u.user_id;
+INNER JOIN Users u ON s.user_id = u.user_id;
 
 -- ============================================================
 -- 4. Show users with more than one phone number
 -- ============================================================
 SELECT u.user_id, u.u_first_name, u.u_last_name, COUNT(p.phone_number) AS phone_count
 FROM Users u
-JOIN User_Phones p ON u.user_id = p.user_id
+INNER JOIN User_Phones p ON u.user_id = p.user_id
 GROUP BY u.user_id
 HAVING COUNT(p.phone_number) > 1;
 
@@ -62,7 +62,7 @@ GROUP BY u_role;
 -- ============================================================
 SELECT u.user_id, u.u_first_name, u.u_last_name, vi.interest_value
 FROM Volunteer_Interests vi
-JOIN Users u ON vi.user_id = u.user_id
+INNER JOIN Users u ON vi.user_id = u.user_id
 ORDER BY u.user_id;
 
 -- ============================================================
@@ -95,7 +95,7 @@ AND u.user_id IN (
 -- ============================================================
 SELECT u.user_id, u.u_first_name, u.u_last_name, va.start_time, va.end_time
 FROM Volunteer_Availability va
-JOIN Users u ON va.user_id = u.user_id
+INNER JOIN Users u ON va.user_id = u.user_id
 WHERE va.availability_day = 'Fri';
 
 -- ============================================================
@@ -111,7 +111,7 @@ ORDER BY volunteer_count DESC;
 -- ============================================================
 SELECT u.user_id, u.u_first_name, u.u_last_name, COUNT(*) AS slots
 FROM Volunteer_Availability va
-JOIN Users u ON va.user_id = u.user_id
+INNER JOIN Users u ON va.user_id = u.user_id
 GROUP BY u.user_id
 HAVING COUNT(*) > 1;
 
@@ -120,8 +120,8 @@ HAVING COUNT(*) > 1;
 -- ============================================================
 SELECT DISTINCT u.user_id, u.u_first_name, u.u_last_name
 FROM Users u
-JOIN Volunteer_Interests vi ON u.user_id = vi.user_id
-JOIN Volunteer_Availability va ON u.user_id = va.user_id
+INNER JOIN Volunteer_Interests vi ON u.user_id = vi.user_id
+INNER JOIN Volunteer_Availability va ON u.user_id = va.user_id
 ORDER BY u.user_id;
 
 -- ============================================================
@@ -276,11 +276,10 @@ LIMIT 3;
 -- ============================================================
 -- 35. List categories for each event
 -- ============================================================
-
 SELECT Events.event_id, Events.e_title, Event_Categories.ec_name
 FROM Events
-JOIN Event_Category_Link ON Events.event_id = Event_Category_Link.event_id
-JOIN Event_Categories ON Event_Category_Link.category_id = Event_Categories.category_id
+INNER JOIN Event_Category_Link ON Events.event_id = Event_Category_Link.event_id
+INNER JOIN Event_Categories ON Event_Category_Link.category_id = Event_Categories.category_id
 ORDER BY Events.event_id, Event_Categories.ec_name;
 
 -- ============================================================
@@ -289,8 +288,8 @@ ORDER BY Events.event_id, Event_Categories.ec_name;
 
 SELECT Events.event_id, Events.e_title, Event_Categories.ec_name
 FROM Events
-JOIN Event_Category_Link ON Events.event_id = Event_Category_Link.event_id
-JOIN Event_Categories ON Event_Category_Link.category_id = Event_Categories.category_id
+INNER JOIN Event_Category_Link ON Events.event_id = Event_Category_Link.event_id
+INNER JOIN Event_Categories ON Event_Category_Link.category_id = Event_Categories.category_id
 WHERE Event_Categories.ec_name = 'Technology';
 
 -- =============================================================
@@ -320,10 +319,10 @@ WHERE Event_Volunteers.user_id IS NULL;
 SELECT Event_Categories.ec_name, Users.user_id,
 CONCAT(Users.u_first_name, ' ', Users.u_last_name) AS volunteer_name
 FROM Event_Categories
-JOIN Event_Category_Link ON Event_Categories.category_id = Event_Category_Link.category_id
-JOIN Events ON Event_Category_Link.event_id = Events.event_id
-JOIN Event_Volunteers ON Events.event_id = Event_Volunteers.event_id
-JOIN Users ON Event_Volunteers.user_id = Users.user_id
+INNER JOIN Event_Category_Link ON Event_Categories.category_id = Event_Category_Link.category_id
+INNER JOIN Events ON Event_Category_Link.event_id = Events.event_id
+INNER JOIN Event_Volunteers ON Events.event_id = Event_Volunteers.event_id
+INNER JOIN Users ON Event_Volunteers.user_id = Users.user_id
 WHERE Users.u_role = 'volunteer'
 ORDER BY Event_Categories.ec_name, volunteer_name;
 
@@ -336,7 +335,7 @@ ORDER BY Event_Categories.ec_name, volunteer_name;
 -- ==============================================================
 SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
 FROM Events e
-JOIN Reviews r ON e.event_id = r.event_id
+INNER JOIN Reviews r ON e.event_id = r.event_id
 GROUP BY e.event_id, e.e_title;
 
 -- ==============================================================
@@ -344,7 +343,7 @@ GROUP BY e.event_id, e.e_title;
 -- ==============================================================
 SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
 FROM Events e
-JOIN Reviews r ON e.event_id = r.event_id
+INNER JOIN Reviews r ON e.event_id = r.event_id
 GROUP BY e.event_id, e.e_title
 ORDER BY avg_rating DESC
 LIMIT 1;
@@ -355,7 +354,7 @@ LIMIT 1;
 
 SELECT e.event_id, e.e_title, AVG(r.re_rating) AS avg_rating
 FROM Events e
-JOIN Reviews r ON e.event_id = r.event_id
+INNER JOIN Reviews r ON e.event_id = r.event_id
 GROUP BY e.event_id, e.e_title
 ORDER BY avg_rating ASC
 LIMIT 1;
