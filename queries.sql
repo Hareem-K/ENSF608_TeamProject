@@ -196,10 +196,10 @@ INNER JOIN Users ON Registrations.user_id = Users.user_id;
 -- ============================================================
 -- 26. Events along with the total number of registrations for each event
 -- ============================================================
-SELECT Events.event_id, COUNT(Registrations.registration_id) AS totalRegistrations
+SELECT Events.event_id, Events.e_title, COUNT(Registrations.registration_id) AS totalRegistrations
 FROM Events
 INNER JOIN Registrations ON Events.event_id = Registrations.event_id
-GROUP BY Events.event_id;
+GROUP BY Events.event_id, Events.e_title;
 
 -- ============================================================
 -- 27. Events along with the total number of reviews for each event
